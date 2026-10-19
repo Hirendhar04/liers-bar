@@ -1,6 +1,6 @@
 # Liar’s Lounge
 
-A browser-based, private-room bluffing game for 2–5 friends. It uses original procedural 3D lounge art, actual 52-card playing cards, card dealing and table animations, and a server-authoritative rules engine. This is fictional social play only; there are no purchases, cash wagers, or real-world weapon instructions.
+A browser-based, private-room bluffing game for 2–4 friends. It uses original procedural 3D lounge art and a custom 20-card playing-card deck, card dealing and table animations, and a server-authoritative rules engine. This is fictional social play only; there are no purchases, cash wagers, or real-world weapon instructions.
 
 ## Run locally
 
@@ -21,12 +21,37 @@ Open the Vite URL (usually `http://localhost:5173`) in two or more browser windo
 
 ## Rules
 
-- Rooms hold up to five seats. Two or more connected players must all ready up to deal a standard 52-card deck. Each player starts with three lives.
-- The active player lays one to three cards face down and claims the current table suit. Other players see the claim, not the card faces. The next player may accept it or call “Call bluff.”
-- On a challenge, the server checks the actual suits. If every card matched the declared suit, the challenger is penalized; if any card did not, the player who made the claim is penalized.
-- A penalty has six equally likely chambers, exactly one live. The server privately selects the live chamber and a separate uniformly random trigger. Matching values costs one life: **1/6 (16.7%)**. A harmless click occurs **5/6 (83.3%)**. At zero lives a player is eliminated; the last survivor wins.
+- Rooms hold two to four seats. Two or more connected players must all ready up to deal. The 20-card deck has six Kings, six Queens, six Aces, and two Jokers; every player starts with five cards.
+- The table card is King, Queen, or Ace. On a turn, play one to three cards face down and claim they match that rank. Jokers are wild.
+- Any other player may call “LIAR” on the latest claim. If any card is neither the table rank nor a Joker, the claimant takes the penalty; otherwise the challenger does. The current player can also accept the claim.
+- The fictional penalty uses one live chamber among six. The server secretly chooses the live chamber and a random trigger, giving a **1/6 (16.7%)** chance of elimination and a **5/6 (83.3%)** chance to survive. Each player has one life; the last player standing wins.
 - These odds apply to each independent penalty. Animation never decides the result. Clients receive only the target and timing until the server resolves and broadcasts the outcome. Clients cannot choose or reroll a chamber; duplicate challenges and resolutions are rejected.
 - An idle active turn advances after 60 seconds. Disconnecting the active player advances play immediately; reconnecting with that tab’s saved token restores the same seat. An empty room is cleared after five minutes.
+
+## House-rule variants guide
+
+The website’s Rules button explains Basic Deck, Devil, Chaos, and Dice rules. Basic Deck is playable. Devil, Chaos, and Dice remain reference rules and are not selectable modes.
+
+### Basic Liar’s Deck
+
+- Use 20 cards: six Kings, six Queens, six Aces, and two Jokers. Deal five cards per player and choose King, Queen, or Ace as the table card.
+- On a turn, play one to three cards face down and claim they match the table card. Jokers are wild.
+- Any other player may call “LIAR” on the latest claim. If any card is neither the table rank nor a Joker, the claimant takes the fictional penalty; otherwise the challenger does.
+- A live chamber eliminates that player; a harmless result lets them stay. Continue until one player remains.
+
+### Devil Mode
+
+Add a Devil card that must be played alone. If it is challenged and revealed, every other non-eliminated player takes the penalty simultaneously.
+
+### Chaos Mode
+
+Use 12 cards: five Kings, five Queens, one Master, and one Chaos. Deal three cards per player. A Master allows its player to choose who takes the penalty; a Chaos card makes everyone take it.
+
+### Liar’s Dice
+
+Each player starts with five hidden dice. Players bid on how many dice of a face value appear across all cups; every new bid must be higher. Challenge the previous bid to reveal the cups. If the bid was too high, the bidder loses a life; otherwise the challenger does. Losing two lives eliminates a player.
+
+The six-chamber penalty is fictional game mechanics only; no real-world weapon is involved.
 
 ## Project checks
 
